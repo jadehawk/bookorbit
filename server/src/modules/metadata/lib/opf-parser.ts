@@ -179,7 +179,7 @@ function parseCalibreUserMetadata(raw: string | null): { pageCount: number | nul
     if (Array.isArray(v)) return v.map((item) => String(item).trim()).filter(Boolean);
     if (typeof v === 'string')
       return v
-        .split(/[|,]/)
+        .split(v.includes('|') ? '|' : ',')
         .map((item) => item.trim())
         .filter(Boolean);
     return [];

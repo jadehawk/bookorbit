@@ -732,6 +732,11 @@ describe('parseOpf', () => {
       expect(parseOpf(xml).tags).toEqual(['Horror', 'Historical Fiction']);
     });
 
+    it('prefers pipe over comma when both are present in a #extra_tags string value', () => {
+      const xml = epub3Opf(`<meta property="calibre:user_metadata">{"#extra_tags":{"#value#":"History, Modern|Fantasy"}}</meta>`);
+      expect(parseOpf(xml).tags).toEqual(['History, Modern', 'Fantasy']);
+    });
+
     it('merges #extra_tags with bookorbit:tags and deduplicates', () => {
       const xml = epub3Opf(`
         <meta property="bookorbit:tags">["Horror","Classic"]</meta>
